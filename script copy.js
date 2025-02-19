@@ -21,7 +21,8 @@ const triangleHeight = 70;
 
 const pastelColors = [
     "#ffd1dc", "#c5e1a5", "#b2dfdb", "#f8bbd0", "#ffe082", "#b3e5fc",
-    "#d1c4e9", "#ffab91", "#a5d6a7", "#b39ddb", "#80cbc4", "#ffcc80"
+    "#d1c4e9", "#ffab91", "#a5d6a7", "#b39ddb", "#80cbc4", "#ffcc80",
+    "#ffd1dc", "#c5e1a5", "#b2dfdb", "#f8bbd0", "#ffe082"
 ];
 
 const noteColors = {};
@@ -36,6 +37,12 @@ Array.from(uniqueNotes).forEach((note, index) => {
     tonnetzNodes[note] = [];
 });
 
+["C", "C#", "D", "D#", "E"].forEach(highNote => {
+    const highVersion = `${highNote}-high`;
+    noteColors[highVersion] = noteColors[highNote]; // Use base note's color
+    console.log(`🎨 Assigned color to ${highVersion} (same as ${highNote})`);
+});
+
 // Generate triangles and nodes
 rows.forEach((row, rowIndex) => {
     row.forEach((note, colIndex) => {
@@ -45,7 +52,7 @@ rows.forEach((row, rowIndex) => {
         // Map coordinates to notes
         coordinateToNote[`${x},${y}`] = note;
 
-        // Add triangles
+        // Add triangles first
         if (rowIndex < rows.length - 1 && colIndex < row.length - 1) {
             const xRight = x + triangleWidth;
             const xDownRight = x + triangleWidth / 2;
@@ -61,14 +68,13 @@ rows.forEach((row, rowIndex) => {
             }
         }
 
-        
-        
-        // Add circular nodes
+        // Add nodes after triangles
         const node = createNode(x, y, note);
-        svg.appendChild(node);
+        svg.appendChild(node); // Nodes are appended last, ensuring they are on top
         tonnetzNodes[note].push(node);
     });
 });
+
 
 // Function to create lines forming triangles
 function createTriangle(x1, y1, x2, y2, x3, y3) {
@@ -140,41 +146,64 @@ document.querySelectorAll('.key').forEach(key => {
 });
 
 
-// Apply color to nodes and keys
 function applyColor(note) {
-    const color = noteColors[note];
+    console.log(`🎹 applyColor() called for: ${note}`);
 
-    // Update Tonnetz nodes
-    if (tonnetzNodes[note]) {
-        tonnetzNodes[note].forEach(node => {
-            const circle = node.querySelector('circle');
-            // console.log(`Applying color to circle for note: ${note}`, circle);
-            if (circle) {
-                circle.setAttribute('fill', color); // Apply fill color
-                console.log('Circle fill attribute:', circle.getAttribute('fill')); // Log the actual value
-            } else {
-                console.log('not found')
-            }
-        });
+    // Map -high notes to their base equivalents for Tonnetz
+    const baseNote = note.replace("-high", ""); // Convert "C-high" to "C"
+
+    if (!noteColors[baseNote]) {
+        console.warn(`❌ No color assigned to: ${note} (base: ${baseNote})`);
+        return; // Stop execution if the note has no color
     }
 
+    const color = noteColors[baseNote]; // Use base note's color
+
+    // ✅ Highlight the Tonnetz nodes for the base note
+    if (tonnetzNodes[baseNote]) {
+        tonnetzNodes[baseNote].forEach(node => {
+            const circle = node.querySelector('circle');
+            if (circle) {
+                circle.style.fill = color; // Apply color
+                console.log(`✅ Highlighted Tonnetz node for: ${note} as ${baseNote}`);
+            }
+        });
+    } else {
+        console.warn(`❌ Tonnetz node missing for: ${note} (base: ${baseNote})`);
+    }
+
+    // ✅ Highlight the actual keyboard key
     const keys = document.querySelectorAll(`.key[data-note="${note}"]`);
+    if (keys.length === 0) {
+        console.warn(`❌ No keyboard key found for: ${note}`);
+    }
     keys.forEach(key => {
         key.style.backgroundColor = color;
+        console.log(`✅ Highlighted keyboard key for: ${note}`);
     });
 }
+
 
 // Reset all colors
 function resetColors() {
     Object.keys(tonnetzNodes).forEach(note => {
-        tonnetzNodes[note].forEach(node => {
-            const circle = node.querySelector('circle');
-            circle.setAttribute('fill', 'white');
-        });
-
-        const keys = document.querySelectorAll(`.key[data-note="${note}"]`);
-        keys.forEach(key => {
-            key.style.backgroundColor = '';
-        });
+        const circleNodes = tonnetzNodes[note];
+        if (circleNodes) {
+            circleNodes.forEach(node => {
+                const circle = node.querySelector('circle');
+                if (circle) {
+                    circle.style.fill = 'white'; // Reset fill color
+                }
+            });
+        }
     });
+
+    // ✅ Reset colors for the keyboard keys
+    document.querySelectorAll('.key').forEach(key => {
+        key.style.backgroundColor = ''; // Reset key color
+    });
+
+    console.log("🎨 Reset all colors.");
 }
+
+console.log(tonnetzNodes);
