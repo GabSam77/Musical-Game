@@ -146,3 +146,4 @@ if (!window.coordinateToNote || Object.keys(window.coordinateToNote).length === 
     console.log("coordinateToNote mapping loaded successfully.");
 }
 console.log("✅ noteMap at the end of samples.js:", window.noteMap);
+
