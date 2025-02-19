@@ -3,81 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Tonnetz</title>
+    <title>Tonnetz Trainer</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/tone"></script>
-
 </head>
 <body>
-    <div class="container">
-        <h1>Musical Ear Training Game</h1>
-        <h2>The Tonnetz</h2>
-        
-        <!-- Tonnetz Grid -->
-        <div class="tonnetz-outer">
-            <div class="tonnetz-container">
-                <svg id="tonnetz-grid" xmlns="http://www.w3.org/2000/svg"></svg>
-            </div>
-        </div>
-        
-        <h2>Piano</h2>
-        <!-- Visual Keyboard -->
-        <div class="keyboard-wrapper">
-            <div class="keyboard">
-                <!-- Octaves -->
-                <div class="key-container">
-                    <div class="key white" data-note="C"><span class="key-label">C</span></div>
-                    <div class="key black" data-note="C#"><span class="key-label">C#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="D"><span class="key-label">D</span></div>
-                    <div class="key black" data-note="D#"><span class="key-label">D#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="E"><span class="key-label">E</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="F"><span class="key-label">F</span></div>
-                    <div class="key black" data-note="F#"><span class="key-label">F#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="G"><span class="key-label">G</span></div>
-                    <div class="key black" data-note="G#"><span class="key-label">G#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="A"><span class="key-label">A</span></div>
-                    <div class="key black" data-note="A#"><span class="key-label">A#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="B"><span class="key-label">B</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="C-high"><span class="key-label">C</span></div>
-                    <div class="key black" data-note="C#-high"><span class="key-label">C#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="D-high"><span class="key-label">D</span></div>
-                    <div class="key black" data-note="D#-high"><span class="key-label">D#</span></div>
-                </div>
-                <div class="key-container">
-                    <div class="key white" data-note="E-high"><span class="key-label">E</span></div>
-                </div>
-                    
-                <!-- Repeat for additional octaves -->
-            </div>
-        </div>
-        <div class="octave-controls">
-            <button id="octave-down">Octave Down</button>
-            <button id="octave-up">Octave Up</button>
+
+    <div class="home-container">
+        <h1>Welcome to the Tonnetz Ear training Game!</h1>
+        <h1>Choose an option:</h1>
+<br>
+        <div class="home-buttons">
+            <a href="main copy.html">
+                <button class="home-btn">🎹 Practice Mode</button>
+            </a>
+            <br>
+            <a href="game.html">
+                <button class="home-btn">🎮 Start Game</button>
+            </a>
         </div>
     </div>
-    <script src="sound.js"></script>
-    
-    <script src="script copy.js"></script>
-    
-    <script src="keyboard.js"></script>
 
 </body>
 </html>
-<!-- command for localhost server -->
-<!-- project - 3rd year % python3 -m http.server -->
