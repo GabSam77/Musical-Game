@@ -33,8 +33,6 @@ function playNoteByKeyboard(key) {
     // ✅ Apply color to both keyboard and Tonnetz
     applyColor(note);
     applyColor(note.replace("-high", "")); // Map -high notes to base notes for Tonnetz
-
-    console.log(`🎹 playNoteByKeyboard() triggered applyColor() for: ${note}`);
 }
 
 // stop note
