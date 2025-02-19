@@ -125,11 +125,22 @@ function createNode(x, y, note) {
     text.setAttribute('y', 4);
     text.textContent = note;
 
-    group.addEventListener('mousedown', () => {
-        console.log(`Node clicked: ${note}`);
+    // ✅ Mouse + Touch Event Handling for Tonnetz
+    function handleTouchStart(event, note) {
+        event.preventDefault(); // Prevent scrolling when touching
+        console.log(`🎹 Tonnetz Node touched: ${note}`);
         applyColor(note);
-    });
-    group.addEventListener('mouseup', resetColors);
+    }
+
+    function handleTouchEnd() {
+        resetColors();
+    }
+
+    // ✅ Attach both mouse and touch events
+    group.addEventListener('mousedown', (event) => handleTouchStart(event, note));
+    group.addEventListener('mouseup', handleTouchEnd);
+    group.addEventListener('touchstart', (event) => handleTouchStart(event, note));
+    group.addEventListener('touchend', handleTouchEnd);
     
     group.appendChild(circle);
     group.appendChild(text);
