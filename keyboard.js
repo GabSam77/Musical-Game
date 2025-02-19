@@ -97,3 +97,42 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
     stopNoteByKeyboard(event.key);
 });
+
+// ✅ Ensure Touch Support for Visual Keyboard Keys
+document.querySelectorAll('.key').forEach(key => {
+    const note = key.getAttribute('data-note');
+
+    function handleKeyTouchStart(event) {
+        event.preventDefault(); // Prevent accidental scrolling
+        console.log(`🎹 Key touched: ${note}`);
+        playNote(note);
+        applyColor(note);
+    }
+
+    function handleKeyTouchEnd() {
+        stopNote(note);
+        resetColors();
+    }
+
+    // ✅ Attach touch events to keyboard keys
+    key.addEventListener('touchstart', handleKeyTouchStart);
+    key.addEventListener('touchend', handleKeyTouchEnd);
+});
+
+// ✅ Ensure Touch Support for Laptop Keyboard Input
+document.addEventListener('touchstart', (event) => {
+    const keyElement = event.target.closest('.key');
+    if (keyElement) {
+        const note = keyElement.getAttribute('data-note');
+        playNoteByKeyboard(note);
+    }
+});
+
+document.addEventListener('touchend', (event) => {
+    const keyElement = event.target.closest('.key');
+    if (keyElement) {
+        const note = keyElement.getAttribute('data-note');
+        stopNoteByKeyboard(note);
+    }
+});
+
