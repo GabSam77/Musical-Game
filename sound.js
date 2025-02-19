@@ -1,7 +1,6 @@
 document.addEventListener('click', async () => {
     if (Tone.context.state !== 'running') {
         await Tone.start();
-        console.log("🎵 AudioContext started!");
     }
 }, { once: true });  // Runs only once
 
@@ -9,13 +8,6 @@ document.addEventListener('click', async () => {
 console.log("🚀 sound.js is running!");
 
 let currentOctave = 3; // Default starting octave
-
-// Check if noteMap already exists
-if (window.noteMap) {
-    console.warn("⚠️ window.noteMap already exists!", window.noteMap);
-} else {
-    console.warn("❌ window.noteMap DOES NOT EXIST before setting it.");
-}
 
 // Function to generate dynamic sample URLs
 function generateSampleURLs(octave) {
@@ -39,14 +31,11 @@ function generateSampleURLs(octave) {
         [`D#${octave + 1}`]: `Ds${octave + 1}.wav`,
         [`E${octave + 1}`]: `E${octave + 1}.wav`,
     };
-    console.log("🎵 Generated Sample URLs:", urls);
     return urls;
 }
 
 let sampler;
-function initializeSampler() {
-    console.log("🔄 Initializing Sampler...");
-    
+function initializeSampler() {    
     sampler = new Tone.Sampler({
         urls: generateSampleURLs(currentOctave),
         release: 1,
@@ -103,7 +92,6 @@ window.noteMap = generateNoteMap(currentOctave);
 // Function to update noteMap when transposing
 function updateNoteMap() {
     window.noteMap = generateNoteMap(currentOctave);
-    console.log("🎶 Updated noteMap:", window.noteMap);
 }
 
 // Function to transpose the octave dynamically
@@ -111,21 +99,21 @@ function transposeOctave(amount) {
     currentOctave += amount;
     updateNoteMap();
     updateSampler();
-    console.log(`🎼 Transposed to Octave: ${currentOctave}`);
+    updateOctaveDisplay();
 }
 
-// Log immediately after setting noteMap
-console.log("✅ window.noteMap set:", window.noteMap);
-
-// Check again after everything
-setTimeout(() => {
-    console.log("✅ Final window.noteMap check:", window.noteMap);
-}, 1000);
+function updateOctaveDisplay() {
+    const octaveText = document.getElementById("current-octave-text");
+    if (octaveText) {
+        octaveText.textContent = currentOctave;
+        console.log(`🎵 Updated Octave Display: ${currentOctave}`);
+    } else {
+        console.warn("⚠️ Octave display element not found in DOM.");
+    }
+}
 
 function playNote(note) {
     const mappedNote = window.noteMap[note]; // Dynamically mapped note
-    
-    console.log(`🎶 Attempting to play: ${note} → ${mappedNote}`);
 
     // Check if the sampler is fully loaded
     if (!sampler.loaded) {
@@ -136,7 +124,6 @@ function playNote(note) {
     // Play the note only if it exists in the sampler
     if (mappedNote) {
         sampler.triggerAttack(mappedNote);
-        console.log(`✅ Playing: ${mappedNote}`);
     } else {
         console.warn(`⚠️ No sample found for ${mappedNote}`);
     }
@@ -200,8 +187,7 @@ document.addEventListener('mouseup', () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("🎛️ Setting up octave buttons...");
-
+    updateOctaveDisplay();
     // Get buttons
     const octaveDownBtn = document.getElementById("octave-down");
     const octaveUpBtn = document.getElementById("octave-up");
@@ -236,7 +222,6 @@ document.addEventListener("keydown", (event) => {
     if (event.key.toLowerCase() === "z") {
         if (currentOctave > 2) {
             transposeOctave(-1);
-            console.log("⬇️ Transposed Down via Keyboard (Z)");
         } else {
             console.warn("⚠️ Minimum Octave Reached (C2)");
         }
@@ -244,7 +229,6 @@ document.addEventListener("keydown", (event) => {
     else if (event.key.toLowerCase() === "x") {
         if (currentOctave < 4) {
             transposeOctave(1);
-            console.log("⬆️ Transposed Up via Keyboard (X)");
         } else {
             console.warn("⚠️ Maximum Octave Reached (C4)");
         }
