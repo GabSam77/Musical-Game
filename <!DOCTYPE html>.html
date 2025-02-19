@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard Layout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .keyboard {
+      display: flex;
+      position: relative;
+    }
+
+    .key-container {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 150px;
+      margin: 0; /* Ensures no gaps between keys */
+    }
+
+    .key.white {
+      position: absolute;
+      width: 50px;
+      height: 150px;
+      border: 1px solid #ccc;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+      z-index: 0;
+    }
+
+    .key.black {
+      position: absolute;
+      width: 30px;
+      height: 100px;
+      background-color: black;
+      color: white;
+      z-index: 1;
+      left: 35px; /* Center black key above white key */
+      top: 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      border-radius: 3px;
+    }
+
+    .key-label {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .key:hover {
+      background-color: #ddd;
+    }
+
+    .key.black:hover {
+      background-color: #444;
+    }
+
+    /* Remove default focus outline */
+    .key:focus {
+      outline: none;
+    }
+
+    /* Custom "selected" style, if needed in the future */
+    .key.selected {
+      outline: none; /* Ensures no yellow outline on selection */
+    }
+  </style>
+</head>
+<body>
+  <div class="keyboard">
+    <div class="key-container">
+      <div class="key white" data-note="A"><span class="key-label">A</span></div>
+      <div class="key black" data-note="W"><span class="key-label">W</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="S"><span class="key-label">S</span></div>
+      <div class="key black" data-note="E"><span class="key-label">E</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="D"><span class="key-label">D</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="F"><span class="key-label">F</span></div>
+      <div class="key black" data-note="T"><span class="key-label">T</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="G"><span class="key-label">G</span></div>
+      <div class="key black" data-note="Y"><span class="key-label">Y</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="H"><span class="key-label">H</span></div>
+      <div class="key black" data-note="U"><span class="key-label">U</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="J"><span class="key-label">J</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="K"><span class="key-label">K</span></div>
+      <div class="key black" data-note="O"><span class="key-label">O</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="L"><span class="key-label">L</span></div>
+      <div class="key black" data-note="P"><span class="key-label">P</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note=";"><span class="key-label">;</span></div>
+    </div>
+    <div class="key-container">
+      <div class="key white" data-note="'"><span class="key-label">'</span></div>
+    </div>
+  </div>
+
+  <script>
+    // Remove alerts and any click behavior
+    const keys = document.querySelectorAll('.key');
+
+    keys.forEach(key => {
+      key.addEventListener('mouseenter', () => {
+        key.classList.add('hover');
+      });
+
+      key.addEventListener('mouseleave', () => {
+        key.classList.remove('hover');
+      });
+
+      key.addEventListener('click', () => {
+        // No alert or specific behavior on click
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #d9ecff;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: #333;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Tonnetz Layout */
+.tonnetz-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.tonnetz-container {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 1100px;
+    height: 700px; 
+    overflow: hidden; 
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+}
+
+svg {
+    width: 1200px;
+    height: 100%;
+}
+
+.connection {
+    stroke: #aaa;
+    stroke-width: 1;
+}
+
+.node {
+    fill: white; 
+    stroke: #aaa;
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: fill 0.2s; 
+}
+
+.node:hover {
+    fill: #ddd;
+}
+
+.node.active {
+    fill: #903838
+}
+
+.note-label {
+    font-size: 12px;
+    text-anchor: middle;
+    pointer-events: none;
+    fill: #333;
+}
+
+/* Keyboard Styling */
+.keyboard-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.keyboard {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: fit-content;
+    gap: 0;
+}
+
+.key-container {
+    position: relative;
+    width: 50px;
+    height: 150px;
+}
+
+.key.white {
+    position: absolute;
+    width: 50px;
+    height: 150px;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.key.black {
+    position: absolute;
+    width: 30px;
+    height: 100px;
+    background-color: black;
+    color: white;
+    z-index: 1;
+    left: 35px;
+    top: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+}
+
+.key-label {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.key:hover {
+    background-color: #ddd;
+}
+
+.key.black:hover {
+    background-color: #444;
+}
+
+.octave-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.octave-controls button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #9eaaae;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.octave-controls button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for triangles */
+polygon {
+    fill: transparent; 
+    stroke: rgb(141, 141, 141);
+    stroke-width: 1;
+    cursor: pointer;
+    transition: fill 0.2s, stroke 0.2s;
+}
+
+polygon:hover {
+    fill: rgba(138, 205, 228, 0.5); 
+}
+
+polygon:active {
+    fill: rgba(80, 124, 205, 0.8); 
+}
+
