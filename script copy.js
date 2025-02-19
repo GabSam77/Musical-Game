@@ -40,7 +40,6 @@ Array.from(uniqueNotes).forEach((note, index) => {
 ["C", "C#", "D", "D#", "E"].forEach(highNote => {
     const highVersion = `${highNote}-high`;
     noteColors[highVersion] = noteColors[highNote]; // Use base note's color
-    console.log(`🎨 Assigned color to ${highVersion} (same as ${highNote})`);
 });
 
 // Generate triangles and nodes
@@ -127,8 +126,7 @@ function createNode(x, y, note) {
 
     // ✅ Mouse + Touch Event Handling for Tonnetz
     function handleTouchStart(event, note) {
-        event.preventDefault(); // Prevent scrolling when touching
-        console.log(`🎹 Tonnetz Node touched: ${note}`);
+        event.preventDefault();
         applyColor(note);
     }
 
@@ -158,7 +156,6 @@ document.querySelectorAll('.key').forEach(key => {
 
 
 function applyColor(note) {
-    console.log(`🎹 applyColor() called for: ${note}`);
 
     // Map -high notes to their base equivalents for Tonnetz
     const baseNote = note.replace("-high", ""); // Convert "C-high" to "C"
@@ -176,7 +173,6 @@ function applyColor(note) {
             const circle = node.querySelector('circle');
             if (circle) {
                 circle.style.fill = color; // Apply color
-                console.log(`✅ Highlighted Tonnetz node for: ${note} as ${baseNote}`);
             }
         });
     } else {
@@ -190,7 +186,6 @@ function applyColor(note) {
     }
     keys.forEach(key => {
         key.style.backgroundColor = color;
-        console.log(`✅ Highlighted keyboard key for: ${note}`);
     });
 }
 
@@ -213,8 +208,6 @@ function resetColors() {
     document.querySelectorAll('.key').forEach(key => {
         key.style.backgroundColor = ''; // Reset key color
     });
-
-    console.log("🎨 Reset all colors.");
 }
 
 console.log(tonnetzNodes);
