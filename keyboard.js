@@ -97,6 +97,3 @@ document.addEventListener('keydown', (event) => {
 document.addEventListener('keyup', (event) => {
     stopNoteByKeyboard(event.key);
 });
-
-
-
