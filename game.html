@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Tonnetz</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/tone"></script>
+    <script src="http://unpkg.com/tone"></script>
 
 </head>
 <body>
@@ -15,6 +15,11 @@
         </a>
         <h1 class="top">Game Mode</h1>
     </div>
+    <!-- 🎨 Background Visualizer -->
+    <div id="visualizer-background">
+        <canvas id="visualizer"></canvas>
+    </div>
+
     <div class="container">
         <h2>The Tonnetz</h2>
         
@@ -103,11 +108,13 @@
             <button id="octave-up">Octave Up</button>
         </div>
     </div>
+    
     <script src="sound.js"></script>
     <script src="script copy.js"></script>
-    
+   
     <script src="keyboard.js"></script>
     <script src="game.js"></script>
+    <script src="visualiser.js"></script>
 
     
 </body>
