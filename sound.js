@@ -34,6 +34,11 @@ function generateSampleURLs(octave) {
     return urls;
 }
 
+let analyser = Tone.context.createAnalyser();
+analyser.fftSize = 256;
+let bufferLength = analyser.frequencyBinCount;
+let dataArray = new Uint8Array(bufferLength);
+
 let sampler;
 function initializeSampler() {    
     sampler = new Tone.Sampler({
@@ -44,6 +49,7 @@ function initializeSampler() {
             console.log("✅ Samples successfully loaded.");
         }
     }).toDestination();
+    sampler.connect(analyser);
 }
 
 // Call it at the start
@@ -113,21 +119,25 @@ function updateOctaveDisplay() {
 }
 
 function playNote(note) {
-    const mappedNote = window.noteMap[note]; // Dynamically mapped note
+    const mappedNote = window.noteMap[note];
 
-    // Check if the sampler is fully loaded
-    if (!sampler.loaded) {
+    if (!sampler || !sampler.loaded) {
         console.warn("⚠️ Sampler not yet loaded, can't play:", mappedNote);
         return;
     }
 
-    // Play the note only if it exists in the sampler
     if (mappedNote) {
         sampler.triggerAttack(mappedNote);
+
+        // ✅ Call the visualization function (Now properly defined)
+        if (window.onNotePlayed) {
+            window.onNotePlayed(mappedNote);
+        }
     } else {
         console.warn(`⚠️ No sample found for ${mappedNote}`);
     }
 }
+
 
 
 // Function to stop a note using the sampler
@@ -137,6 +147,8 @@ function stopNote(note) {
         sampler.triggerRelease(mappedNote);
     }
 }
+
+window.audioAnalyser = analyser;
 
 // Function to get notes from triangle coordinates
 function getNotesFromTriangle(triangle) {
