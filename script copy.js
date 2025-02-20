@@ -19,13 +19,12 @@ const nodeRadius = 20;
 const triangleWidth = 100;
 const triangleHeight = 70;
 
-const pastelColors = [
+window.pastelColors = [
     "#ffd1dc", "#c5e1a5", "#b2dfdb", "#f8bbd0", "#ffe082", "#b3e5fc",
     "#d1c4e9", "#ffab91", "#a5d6a7", "#b39ddb", "#80cbc4", "#ffcc80",
-    "#ffd1dc", "#c5e1a5", "#b2dfdb", "#f8bbd0", "#ffe082"
 ];
 
-const noteColors = {};
+window.noteColors = {};
 const tonnetzNodes = {}; // Map of note to its nodes on the grid
 const coordinateToNote = {}; // Map coordinates to their notes
 window.coordinateToNote = coordinateToNote;
